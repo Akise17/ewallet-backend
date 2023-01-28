@@ -10,14 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_070217) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_28_175456) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "custom_auto_increments", force: :cascade do |t|
+    t.string "counter_model_name"
+    t.integer "counter", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["counter_model_name"], name: "index_custom_auto_increments_on_counter_model_name"
+  end
 
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
+  end
+
+  create_table "team_jwt_denylist", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_team_jwt_denylist_on_jti"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "phone_number", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "otp_secret_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_teams_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_teams_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_teams_on_reset_password_token", unique: true
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer "transaction_type"
+    t.string "invoice_number"
+    t.decimal "amount"
+    t.string "type"
+    t.bigint "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "external_id"
+    t.bigint "from_id"
+    t.json "checkout_url"
+    t.string "status", default: "pending"
+    t.json "raw_response"
   end
 
   create_table "users", force: :cascade do |t|

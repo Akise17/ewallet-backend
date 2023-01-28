@@ -1,0 +1,2 @@
+class UserTransaction < Transaction
+end

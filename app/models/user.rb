@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   validates :phone_number, presence: true
   has_one_time_password column_name: :otp_secret_key, length: 4, interval: 300
+  has_many :transactions, class_name: 'UserTransaction', foreign_key: 'owner_id'
 
   devise :database_authenticatable,
          :jwt_authenticatable,
