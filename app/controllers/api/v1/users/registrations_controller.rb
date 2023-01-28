@@ -1,5 +1,14 @@
 class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
+  attr_reader :resource
+
+  def create
+    @resource = User.find_or_initialize_by(phone_number: sign_up_params[:phone_number])
+    return register_failed unless @resource.save
+
+    @resource.send_confirmation_instructions
+    register_success
+  end
 
   private
 
@@ -12,12 +21,13 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_failed
-    render json: { message: 'Signed up failure.' }
+    render json: { message: resource.errors }
   end
 
   def sign_up_params
     params.require(:user)
           .permit(:email,
+                  :phone_number,
                   :password)
   end
 end

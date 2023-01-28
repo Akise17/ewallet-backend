@@ -2,10 +2,12 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.1'
+gem 'active_model_otp'
 gem 'bootsnap', require: false
 gem 'devise'
 gem 'devise-jwt'
 gem 'figaro'
+gem 'httparty'
 gem 'importmap-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'pg_search'
