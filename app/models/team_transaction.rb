@@ -1,0 +1,2 @@
+class TeamTransaction < Transaction
+end
