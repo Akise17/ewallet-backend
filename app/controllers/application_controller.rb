@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   respond_to :json
 
   Unauthorized = Class.new(StandardError)
+  InsufficientBalance = Class.new(StandardError)
 
   rescue_from ActiveRecord::RecordNotFound do |e|
     data = {}
@@ -22,6 +23,17 @@ class ApplicationController < ActionController::Base
       data[:title] = 'Not Authorized'
       data[:detail] = 'You need to login to continue'
       data[:code] = 'not_authorized'
+    end
+    render json: data, status: :unprocessable_entity
+  end
+
+  rescue_from InsufficientBalance do |e|
+    data = {}
+    if e.present?
+      data[:status] = '422'
+      data[:title] = 'Insufficient Balance'
+      data[:detail] = 'Insufficient Balance'
+      data[:code] = 'insufficient_balance'
     end
     render json: data, status: :unprocessable_entity
   end

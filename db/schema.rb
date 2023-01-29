@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_28_175456) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_29_080118) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,6 +65,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_175456) do
     t.json "checkout_url"
     t.string "status", default: "pending"
     t.json "raw_response"
+    t.string "transfer_to"
+    t.json "state_history"
+    t.index ["transfer_to"], name: "index_transactions_on_transfer_to"
   end
 
   create_table "users", force: :cascade do |t|

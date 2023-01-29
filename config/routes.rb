@@ -12,7 +12,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :test
 
-      resources :transactions
+      resources :transactions do
+        collection do
+          get :balance
+        end
+      end
     end
   end
 end

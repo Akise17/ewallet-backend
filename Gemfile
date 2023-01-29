@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.1'
 gem 'active_model_otp'
 gem 'bootsnap', require: false
+gem 'bootstrap', '~> 4.0.0'
 gem 'devise'
 gem 'devise-jwt'
 gem 'figaro'
@@ -18,6 +19,7 @@ gem 'rails', '~> 7.0.3'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
 gem 'sqlite3', '~> 1.4'
+gem 'state_machines-activerecord'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
